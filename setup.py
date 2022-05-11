@@ -9,7 +9,7 @@ requirements = [
 
 setup(
     name="gazelle_client",
-    version="1.0.0",
+    version="1.0.1",
     description="Python API for Gazelle",
     url="https://github.com/hibikidesu/gazelle_api_py",
     author="Hibiki",

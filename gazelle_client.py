@@ -4,7 +4,7 @@ import os
 import requests
 import appdirs
 
-__VERSION__ = "1.0.0"
+__VERSION__ = "1.0.1"
 DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " \
                      "AppleWebKit/537.36 (KHTML, like Gecko) " \
                      "Chrome/74.0.3729.169 Safari/537.36"
@@ -65,12 +65,18 @@ class GazelleClient:
             raise ValueError("Neither session or username and password was not provided.")
 
     def get(self, action: str, **kwargs) -> dict:
+        special = kwargs.pop("special", {})
+
+        params = {
+            "action": action,
+            **kwargs
+        }
+
+        params.update(special)
+
         response = self._session.get(
             f"{self.host}/ajax.php",
-            params={
-                "action": action,
-                **kwargs
-            },
+            params=params,
             headers={
                 "User-Agent": self._user_agent
             }
